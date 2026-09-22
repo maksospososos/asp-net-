@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -51,19 +52,33 @@ public class IndexModel : PageModel
         string technologies = Technologies.Length > 0 ? string.Join(", ", Technologies) : "Не выбраны";
 
        
-        string message = $"Анкета студента\n\n" +
-                         $"Имя: {Name}\n" +
-                         $"Телефон: {Phone}\n" +
-                         $"Email: {Email}\n" +
-                         $"Дата рождения: {BirthDate}\n" +
-                         $"Город: {City}\n" +
-                         $"Специальность: {Speciality}\n" +
-                         $"Курс: {Course}\n" +
-                         $"Основной язык: {MainLanguage}\n" + 
-                         $"Формат обучения: {EducationFormat}\n" + 
-                         $"Технологии: {technologies}\n" +
-                         $"О себе: {AboutSelf}"; 
+        // string message = $"Анкета студента\n\n" +
+        //                  $"Имя: {Name}\n" +
+        //                  $"Телефон: {Phone}\n" +
+        //                  $"Email: {Email}\n" +
+        //                  $"Дата рождения: {BirthDate}\n" +
+        //                  $"Город: {City}\n" +
+        //                  $"Специальность: {Speciality}\n" +
+        //                  $"Курс: {Course}\n" +
+        //                  $"Основной язык: {MainLanguage}\n" + 
+        //                  $"Формат обучения: {EducationFormat}\n" + 
+        //                  $"Технологии: {technologies}\n" +
+        //                  $"О себе: {AboutSelf}"; 
+        var student = new {
+            Name,
+            Phone,
+            Email,
+            Speciality,
+            City,
+            MainLanguage,
+            EducationFormat,
+            AboutSelf,
+            Message,
+            Technologies,
+            BirthDate,
+            Course
+        };
 
-        return Content(message);
+        return Content(JsonSerializer.Serialize(student),"application/json");
     }
 }
